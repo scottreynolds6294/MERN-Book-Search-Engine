@@ -3,6 +3,14 @@ const { signToken } = require('../utils/auth');
 
 const resolvers = {
     Query: {
+        async me(parent, args, context) {
+            if (!context.user) {
+              throw new Error('You need to be logged in!');
+            }
+      
+            const foundUser = await User.findOne({ _id: context.user._id });
+            return foundUser;
+          },
         async getSingleUser(parent, { id, username }, context) {
             const foundUser = await User.findOne({
                 $or: [{ _id: id || context.user?._id }, { username }],
@@ -17,7 +25,7 @@ const resolvers = {
     },
 
     Mutation: {
-        async createUser(parent, args) {
+        async addUser(parent, args) {
             const user = await User.create(args);
 
             if (!user) {
@@ -28,7 +36,7 @@ const resolvers = {
             return { token, user};
         },
 
-        async login(parent, { username, email, password }) {
+        async loginUser(parent, { username, email, password }) {
             const user = await User.findOne({ $or: [{ username }, { email }] });
              if (!user) {
                 throw new Error('Cannot find this user');

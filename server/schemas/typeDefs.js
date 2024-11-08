@@ -16,7 +16,7 @@ const typeDefs = `
         link: String    
     }
 
-    Auth {
+    type Auth {
         token: ID!
         user: User
     }
@@ -32,14 +32,18 @@ const typeDefs = `
     
     type Query {
         me: User
+        getSingleUser(id: ID!): User
     }
+
 
     type Mutation {
         addUser(username: String!, email: String!, password: String!): Auth
-        login(email: String!, password: String!): Auth
+        loginUser(email: String!, password: String!): Auth
         saveBook(bookData: BookInput!): User
-        removeBook(bookId: ID!): User
+        deleteBook(bookId: ID!): User
     }
+        
+
 `;
 
 module.exports = typeDefs;

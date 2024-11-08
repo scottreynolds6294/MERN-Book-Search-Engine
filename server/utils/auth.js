@@ -28,6 +28,7 @@ module.exports = {
       console.log('Invalid token');
       return { user: null };
     }
+    
   },
   signToken: function ({ username, email, _id }) {
     const payload = { username, email, _id };
