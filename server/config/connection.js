@@ -1,5 +1,8 @@
 const mongoose = require('mongoose');
 
-mongoose.connect(process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/googlebooks');
+mongoose.connect( 'mongodb+srv://scottreynolds6294:<terps4114>@cluster0.c4tnf.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0', {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+});
 
 module.exports = mongoose.connection;
